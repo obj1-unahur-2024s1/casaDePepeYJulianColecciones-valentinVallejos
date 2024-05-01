@@ -1,0 +1,140 @@
+import casa.*
+import cosas.*
+import cuentaBancaria.*
+
+test "cantidad de cosas" {
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(heladera)
+	casa.comprar(paqueteDeFideos)
+	
+	assert.equals(casa.cantidadDeCosasCompradas() , 4 )
+
+}
+
+test "casa tiene comida" {
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(heladera)
+	casa.comprar(paqueteDeFideos)
+	
+	assert.that(casa.tieneComida())
+
+} 
+
+test "casa viene de equiparse" {
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(heladera)
+	casa.comprar(paqueteDeFideos)
+	
+	assert.notThat(casa.vieneDeEquiparse())
+
+}
+
+test "casa es Derrochosa" {
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(heladera)
+	casa.comprar(paqueteDeFideos)
+	
+	assert.that(casa.esDerrochona())
+
+}
+
+test "casa no es Derrochosa" {
+	casa.comprar(cama)
+	
+	
+	assert.notThat(casa.esDerrochona())
+
+}
+
+test "casa compra Mas Cara"{
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	
+	assert.equals(casa.compraMasCara() , cama)
+}
+
+test "casa cantidad de electrodomesticos" {
+	casa.comprar(cama)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(heladera)
+	casa.comprar(plancha)
+	
+	assert.equals(casa.electrodomesticosComprados() ,[heladera , plancha] )
+
+}
+
+test "casa tiene mala epoca" {
+	
+	casa.comprar(tiraDeAsado)
+	casa.comprar(paqueteDeFideos)
+
+	
+	assert.that(casa.malaEpoca())
+
+}
+
+test "casa no tiene mala epoca" {
+	
+	casa.comprar(tiraDeAsado)
+	casa.comprar(plancha)
+	casa.comprar(paqueteDeFideos)
+
+	
+	assert.notThat(casa.malaEpoca())
+
+}
+
+test "casa falta comprar" {
+	
+	casa.comprar(tiraDeAsado)
+	casa.comprar(plancha)
+	casa.comprar(paqueteDeFideos)
+
+	
+	assert.equals( casa.queFaltaComprar([heladera, cama , tiraDeAsado]) , #{heladera,cama} )
+
+}
+
+test "casa falta comida " {
+	
+	casa.comprar(tiraDeAsado)
+	casa.comprar(plancha)
+	casa.comprar(paqueteDeFideos)
+
+	
+	assert.that(casa.faltaComida())
+
+}
+
+test "casa no falta comida " {
+	
+	casa.comprar(tiraDeAsado)
+	casa.comprar(tiraDeAsado)
+	casa.comprar(plancha)
+	casa.comprar(paqueteDeFideos)
+
+	
+	assert.notThat(casa.faltaComida())
+
+}
+
+test "casa dinero disponible"{
+	casa.cuentaDeLaCasa(cuentaCorriente)
+	assert.equals( casa.dineroDisponible() , 30000 )
+}
+
+test "casa gastar"{
+	casa.cuentaDeLaCasa(cuentaCorriente)
+	casa.gastar(2000)
+	assert.equals( casa.dineroDisponible() , 28000 )
+}
+
+test "casa comprar"{
+	casa.cuentaDeLaCasa(cuentaConGastos)
+	casa.comprar(compu)
+	assert.equals( casa.dineroDisponible() , 1592000 )
+}

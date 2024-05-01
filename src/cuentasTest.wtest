@@ -1,0 +1,50 @@
+import cuentaBancaria.*
+test "cuenta corriente depositar" {
+	cuentaCorriente.depositar(10000)
+	assert.equals(cuentaCorriente.saldo() , 40000)
+
+}
+
+test "cuenta corriente extraer" {
+	cuentaCorriente.extraer(10000)
+	assert.equals(cuentaCorriente.saldo() , 20000)
+
+}
+
+
+test "cuenta gastos depositar" {
+	cuentaConGastos.depositar(10200)
+	assert.equals(cuentaConGastos.saldo() , 2010000)
+
+}
+
+test "cuenta gastos extraer menos de 10000" {
+	cuentaConGastos.extraer(9000)
+	assert.equals(cuentaConGastos.saldo() , 1990800 )
+
+}
+
+test "cuenta gastos extraer mas de 10000" {
+	cuentaConGastos.extraer(20000)
+	assert.equals(cuentaConGastos.saldo() , 1979600 )
+
+}
+
+test "cuenta combinada depositar" {
+	cuentaCombinada.depositar(10200)
+	assert.equals(cuentaCorriente.saldo() , 40200)
+
+}
+
+test "cuenta combinada extraer menos de saldo de cuenta primaria" {
+	cuentaCombinada.extraer(20000)
+	assert.equals(cuentaCorriente.saldo() , 10000)
+	assert.equals(cuentaCombinada.saldo() , 2010000 )
+
+}
+
+test "cuenta combinada extraer mas del saldo de cuenta primaria" {
+	cuentaCombinada.extraer(40000)
+	assert.equals(cuentaCombinada.saldo() , 1989200 )
+
+}
